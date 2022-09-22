@@ -1,111 +1,141 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-//todo att kunna ange fler än två tal
-
-int choice = 0;
-bool run = true;
-do
 {
-    Console.WriteLine("Calculator");
-    Console.WriteLine("\tMenysystem");
-    Console.WriteLine("\tVälj mellan funktionerna: ");
-    Console.WriteLine("\t\t 1: Addition ");
-    Console.WriteLine("\t\t 2: Subtraction ");
-    Console.WriteLine("\t\t 3: Division ");
-    Console.WriteLine("\t\t 4: Multiplication ");
-    Console.WriteLine("\t\t 5: SquareRoot ");
-    Console.WriteLine("\t\t 6: Max ");
-    Console.WriteLine("\t\t 7: Min ");
-    Console.WriteLine("\t\t 8: Absolute ");
-    Console.WriteLine("\t\t 9: Log2 ");
-    Console.WriteLine("\t\t 10: Log10 ");
-    Console.WriteLine("\t\t 11: Percent ");
-    Console.WriteLine("\t\t 99: för att avsluta");
-
-    choice = CheckNummer("Ange ditt val!");
-
-    switch (choice)
+    string fel = "";
+    int choice = 0;
+    bool run = true;
+    do
     {
-        case 1:
-            {
-                Addition();
-                break;
-            }
-        case 2:
-            {
-                Subtraction();
-                break;
-            }
-        case 3:
-            {
-                Division();
-                break;
-            }
-        case 4:
-            {
-                Multiplication();
-                break;
-            }
-        case 5:
-            {
-                SquareRoot();
-                break;
-            }
-        case 6:
-            {
-                Max();
-                break;
-            }
-        case 7:
-            {
-                Min();
-                break;
-            }
-        case 8:
-            {
-                Absolute();
-                break;
-            }
-        case 9:
-            { 
-                Log2();
-                break;
-            }
-        case 10:
-            {
-                Log10();
-                break;
-            }
-        case 11:
-            {
-                Percent();
-                break;
-            }
-        case 99:
-            {
-                Console.Clear();
-                Console.WriteLine("Hej då");
-                run = false;
-                break;
-            }
+        Console.WriteLine("Calculator");
+        Console.WriteLine("\tMenysystem");
+        Console.WriteLine("\tVälj mellan funktionerna: ");
+        Console.WriteLine("\t\t 1: Addition ");
+        Console.WriteLine("\t\t 2: Subtraction ");
+        Console.WriteLine("\t\t 3: Division ");
+        Console.WriteLine("\t\t 4: Multiplication ");
+        Console.WriteLine("\t\t 5: SquareRoot ");
+        Console.WriteLine("\t\t 6: Max ");
+        Console.WriteLine("\t\t 7: Min ");
+        Console.WriteLine("\t\t 8: Absolute ");
+        Console.WriteLine("\t\t 9: Log2 ");
+        Console.WriteLine("\t\t 10: Log10 ");
+        Console.WriteLine("\t\t 11: Percent ");
+        Console.WriteLine("\t\t 99: för att avsluta");
 
-        default:
-            {
-                Console.WriteLine("Felaktig inmatnig försök igen!");
-                break;
-            }
+        if (fel == "")
+        {
+            Console.WriteLine("\t" + fel);
+            fel = "";
+        }
 
-    }
-    Console.WriteLine("Tryck enter för att fortsätta");
+        choice = CheckNummer("\tAnge ditt val!");
+
+    
+
+        switch (choice)
+        {
+            case 1:
+                {
+                    Console.Clear();
+                    Addition();
+                    Console.ReadLine();
+                    break;
+                }
+            case 2:
+                {
+                    Console.Clear();
+                    Subtraction();
+                    Console.ReadLine();
+                    break;
+                }
+            case 3:
+                {
+                    Console.Clear();
+                    Division();
+                    Console.ReadLine();
+                    break;
+                }
+            case 4:
+                {
+                    Console.Clear();
+                    Multiplication();
+                    Console.ReadLine();
+                    break;
+                }
+            case 5:
+                {
+                    Console.Clear();
+                    SquareRoot();
+                    Console.ReadLine();
+                    break;
+                }
+            case 6:
+                {
+                    Console.Clear();
+                    Max();
+                    Console.ReadLine();
+                    break;
+                }
+            case 7:
+                {
+                    Console.Clear();
+                    Min();
+                    Console.ReadLine();
+                    break;
+                }
+            case 8:
+                {
+                    Console.Clear();
+                    Absolute();
+                    Console.ReadLine();
+                    break;
+                }
+            case 9:
+                {
+                    Console.Clear();
+                    Log2();
+                    Console.ReadLine();
+                    break;
+                }
+            case 10:
+                {
+                    Console.Clear();
+                    Log10();
+                    Console.ReadLine();
+                    break;
+                }
+            case 11:
+                {
+                    Console.Clear();
+                    Percent();
+                    Console.ReadLine();
+                    break;
+                }
+            case 99:
+                {
+                    run = false;
+                    break;
+                }
+
+            default:
+                {
+                    fel = "Felaktig inmatnig försök igen!";
+                    break;
+                }
+
+        }
+
+        Console.Clear();
+    } while (run);
+    Console.WriteLine("Hej då");
     Console.ReadLine();
-
-    Console.Clear();
-} while (run);
+}
 
 static void Addition()
 {
@@ -118,7 +148,10 @@ static void Subtraction()
 {
     var maths = Inputs("Subtraction");
 
-    Console.WriteLine(maths.Item1 - maths.Item2 );
+    int max = Math.Max(maths.Item1, maths.Item2);
+    int min = Math.Min(maths.Item1, maths.Item2);
+
+    Console.WriteLine(max - min);
 }
 
 static void Division()
@@ -148,7 +181,7 @@ static void SquareRoot()
     Console.WriteLine("Square Root");
     int temp = CheckNummer("Ange siffran");
 
-    Console.WriteLine( Math.Sqrt(temp) );
+    NotNoll( Math.Sqrt(temp) );
 }
 
 static void Max()
@@ -168,7 +201,7 @@ static void Min()
 static void Absolute()
 {
     Console.WriteLine("Absolute");
-    int temp = CheckNummer("Ange siffran");
+    int temp = CheckNummer("Ange en negative siffran");
     Console.WriteLine(Math.Abs(temp));
 }
 
@@ -176,23 +209,26 @@ static void Log2()
 {
     Console.WriteLine("Log2");
     int temp = CheckNummer("Ange siffran");
-    Console.WriteLine(Math.Log2(temp));
+    NotNoll(Math.Log2(temp));
 }
 
 static void Log10()
 {
     Console.WriteLine("Log10");
     int temp = CheckNummer("Ange siffran");
-    Console.WriteLine(Math.Log10(temp));
+
+    NotNoll(Math.Log10(temp));
 }
+
 
 static void Percent()
 {
     Console.WriteLine("Percent");
     int temp = CheckNummer("Ange talet");
-    int temp2 = CheckNummer("Ange Percent 'te.x 45'");
-    double temp3 = temp2/100;
-    Console.WriteLine( Math.Round( temp * temp3));
+    double temp2 = Convert.ToDouble( CheckNummer("Ange Percent tal 'te.x 45'") );
+    double temp3 = (temp2/100);
+    NotNoll(Math.Round(temp * temp3));
+
 }
 
 static Tuple<int, int> Inputs(string type)
@@ -207,20 +243,27 @@ static Tuple<int, int> Inputs(string type)
 
 static int CheckNummer(string num)
 {
+    string fel = "";
     string? temp = null;
     int choice = 0;
 
     do
     {
+        if (fel == "")
+        {
+            Console.WriteLine("\t" + fel);
+            fel = "";
+        }
+            
+
         Console.WriteLine(num);
         
         temp = Convert.ToString(Console.ReadLine());
-
+        
         if (!int.TryParse(temp, out choice))
         {
             temp = null;
-            Console.Clear();
-            Console.WriteLine("Felaktig inmatnig försök igen!");
+            fel = "Felaktig inmatnig försök igen!";
             continue;
         }
     } while (string.IsNullOrEmpty(temp));
@@ -228,3 +271,14 @@ static int CheckNummer(string num)
     return choice;
 }
 
+static void NotNoll(double res)
+{
+    if (res < 1)
+    {
+        Console.WriteLine(res);
+    }
+    else
+    {
+        Console.WriteLine("För litet för att vissa som heltal");
+    }
+}
