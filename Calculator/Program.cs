@@ -28,7 +28,7 @@ using System.Xml.Linq;
         Console.WriteLine("\t\t 11: Percent ");
         Console.WriteLine("\t\t 99: för att avsluta");
 
-        if (fel == "")
+        if (fel != "")
         {
             Console.WriteLine("\t" + fel);
             fel = "";
@@ -125,7 +125,7 @@ using System.Xml.Linq;
 
             default:
                 {
-                    fel = "Felaktig inmatnig försök igen!";
+                    fel = "Felaktig val försök igen!";
                     break;
                 }
 
@@ -249,7 +249,7 @@ static int CheckNummer(string num)
 
     do
     {
-        if (fel == "")
+        if (fel != "")
         {
             Console.WriteLine("\t" + fel);
             fel = "";
