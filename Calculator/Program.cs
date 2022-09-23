@@ -148,10 +148,7 @@ static void Subtraction()
 {
     var maths = Inputs("Subtraction");
 
-    int max = Math.Max(maths.Item1, maths.Item2);
-    int min = Math.Min(maths.Item1, maths.Item2);
-
-    Console.WriteLine(max - min);
+    Console.WriteLine(maths.Item1 - maths.Item2);
 }
 
 static void Division()
@@ -279,6 +276,6 @@ static void NotNoll(double res)
     }
     else
     {
-        Console.WriteLine("För litet för att vissa som heltal");
+        Console.WriteLine(0);
     }
 }
