@@ -1,4 +1,8 @@
-﻿
+﻿using CalculatorApp;
+using System.Text.RegularExpressions;
+
+Calculator calculator = new Calculator();
+
 string fel = "";
 int choice = 0;
 bool run = true;
@@ -8,16 +12,18 @@ do
     Console.WriteLine("\tMenysystem");
     Console.WriteLine("\tVälj mellan funktionerna: ");
     Console.WriteLine("\t\t 1: Addition ");
-    Console.WriteLine("\t\t 2: Subtraction ");
-    Console.WriteLine("\t\t 3: Division ");
-    Console.WriteLine("\t\t 4: Multiplication ");
-    Console.WriteLine("\t\t 5: SquareRoot ");
-    Console.WriteLine("\t\t 6: Max ");
-    Console.WriteLine("\t\t 7: Min ");
-    Console.WriteLine("\t\t 8: Absolute ");
-    Console.WriteLine("\t\t 9: Log2 ");
-    Console.WriteLine("\t\t 10: Log10 ");
-    Console.WriteLine("\t\t 11: Percent ");
+    Console.WriteLine("\t\t 2: Addition Array");
+    Console.WriteLine("\t\t 3: Subtraction");
+    Console.WriteLine("\t\t 4: Subtraction Array");
+    Console.WriteLine("\t\t 5: Division ");
+    Console.WriteLine("\t\t 6: Multiplication ");
+    Console.WriteLine("\t\t 7: SquareRoot ");
+    Console.WriteLine("\t\t 8: Max ");
+    Console.WriteLine("\t\t 9: Min ");
+    Console.WriteLine("\t\t 10: Absolute ");
+    Console.WriteLine("\t\t 11: Log2 ");
+    Console.WriteLine("\t\t 12: Log10 ");
+    Console.WriteLine("\t\t 13: Percent ");
     Console.WriteLine("\t\t 99: för att avsluta");
 
     if (fel != "")
@@ -34,72 +40,134 @@ do
     {
         case 1:
             {
-                Addition();
-                break;
+                var maths = Inputs("Addition");
+
+                Console.WriteLine(calculator.Addition(maths.Item1, maths.Item2));
+
             }
+            break;
         case 2:
             {
-                Subtraction();
-                break;
+                var maths = InputArray();
+
+                Console.WriteLine(calculator.Addition(maths));
+
             }
+            break;
         case 3:
             {
-                Division();
-                break;
+                var maths = Inputs("Subtraction");
+
+                Console.WriteLine(calculator.Subtraction(maths.Item1, maths.Item2));
+
             }
+            break;
         case 4:
             {
-                Multiplication();
-                break;
+                var maths = InputArray();
+
+                Console.WriteLine(calculator.Addition(maths));
+
             }
+            break;
         case 5:
             {
-                SquareRoot();
-                break;
+                var maths = Inputs("Division");
+                try
+                {
+                    Console.WriteLine(calculator.Division(maths.Item1, maths.Item2));
+                }
+                catch (DivideByZeroException e)
+                {
+                    Console.WriteLine("Division med noll är inte definierad för de reella talen");
+                }
             }
+            break;
         case 6:
             {
-                Max();
-                break;
+                var maths = Inputs("Multiplication");
+
+                Console.WriteLine(calculator.Multiplication(maths.Item1, maths.Item2));
+
             }
+            break;
         case 7:
             {
-                Min();
-                break;
+                Console.WriteLine("Square Root");
+                int maths = CheckNummer("Ange siffran");
+
+                Console.WriteLine(calculator.SquareRoot(maths));
+
             }
+            break;
         case 8:
             {
-                Absolute();
-                break;
+                var maths = Inputs("Max");
+
+                Console.WriteLine(calculator.Max(maths.Item1, maths.Item2));
+
             }
+            break;
         case 9:
             {
-                Log2();
-                break;
+                var maths = Inputs("Min");
+
+                Console.WriteLine(calculator.Min(maths.Item1, maths.Item2));
+
+
             }
+            break;
         case 10:
             {
-                Log10();
-                break;
+                Console.WriteLine("Absolute");
+                int maths = CheckNummer("Ange en negative siffran");
+
+                Console.WriteLine(calculator.Absolute(maths));
+
             }
+            break;
         case 11:
             {
-                Percent();
-                break;
+                Console.WriteLine("Log2");
+                int maths = CheckNummer("Ange siffran");
+
+                Console.WriteLine(calculator.Log2(maths));
+
             }
+            break;
+        case 12:
+            {
+                Console.WriteLine("Log10");
+                int maths = CheckNummer("Ange siffran");
+
+                Console.WriteLine(calculator.Log10(maths));
+
+            }
+            break;
+        case 13:
+            {
+                Console.WriteLine("Percent");
+                int maths = CheckNummer("Ange talet");
+                int maths2 = CheckNummer("Ange Percent tal 'te.x 45'");
+
+                Console.WriteLine(calculator.Percent(maths, maths2));
+
+            }
+            break;
         case 99:
             {
                 Console.WriteLine("Hej då");
                 run = false;
-                break;
+
             }
+            break;
 
         default:
             {
                 fel = "Felaktig val försök igen!";
-                break;
-            }
 
+            }
+            break;
     }
 
     Console.ReadLine();
@@ -107,97 +175,6 @@ do
 } while (run);
 
 Console.ReadLine();
-
-
-static void Addition()
-{
-    var maths = Inputs("Addition");
-
-    Console.WriteLine(maths.Item1 + maths.Item2);
-}
-
-static void Subtraction()
-{
-    var maths = Inputs("Subtraction");
-
-    Console.WriteLine(maths.Item1 - maths.Item2);
-}
-
-static void Division()
-{
-    var maths = Inputs("Division");
-
-    if (maths.Item2 == 0)
-    {
-        Console.WriteLine("Division med noll är inte definierad för de reella talen");
-    }
-    else
-    {
-        Console.WriteLine(maths.Item1 / maths.Item2);
-    }
-
-}
-
-static void Multiplication()
-{
-    var maths = Inputs("Multiplication");
-
-    Console.WriteLine(maths.Item1 * maths.Item2);
-}
-
-static void SquareRoot()
-{
-    Console.WriteLine("Square Root");
-    int temp = CheckNummer("Ange siffran");
-
-    NotNoll(Math.Sqrt(temp));
-}
-
-static void Max()
-{
-    var maths = Inputs("Max");
-
-    Console.WriteLine(Math.Max(maths.Item1, maths.Item2));
-}
-
-static void Min()
-{
-    var maths = Inputs("Min");
-
-    Console.WriteLine(Math.Min(maths.Item1, maths.Item2));
-}
-
-static void Absolute()
-{
-    Console.WriteLine("Absolute");
-    int temp = CheckNummer("Ange en negative siffran");
-    Console.WriteLine(Math.Abs(temp));
-}
-
-static void Log2()
-{
-    Console.WriteLine("Log2");
-    int temp = CheckNummer("Ange siffran");
-    NotNoll(Math.Log2(temp));
-}
-
-static void Log10()
-{
-    Console.WriteLine("Log10");
-    int temp = CheckNummer("Ange siffran");
-
-    NotNoll(Math.Log10(temp));
-}
-
-static void Percent()
-{
-    Console.WriteLine("Percent");
-    int temp = CheckNummer("Ange talet");
-    double temp2 = Convert.ToDouble(CheckNummer("Ange Percent tal 'te.x 45'"));
-    double temp3 = (temp2 / 100);
-    NotNoll(Math.Round(temp * temp3));
-
-}
 
 static Tuple<int, int> Inputs(string type)
 {
@@ -207,6 +184,60 @@ static Tuple<int, int> Inputs(string type)
     int temp2 = CheckNummer("Ange andra siffran");
 
     return Tuple.Create(temp, temp2);
+}
+
+static bool DoesInputContainsNumbers(string input)
+{
+    if (string.IsNullOrWhiteSpace(input))
+    {
+        return false;
+    }
+    try
+    {
+        input.Split(",").Select(x => int.Parse(x)).ToList();
+    }
+    catch (Exception ex)
+    {
+        return false;
+    }
+    return true;
+}
+
+static int[] InputArray()
+{
+    bool isRuning = true;
+    string? temp = "";
+    List<int> myInts = new List<int>();
+
+    do
+    {
+        Console.WriteLine("Ange de komma-separerade siffror som ska adderas");
+        Console.WriteLine($"Ange siffra");
+        temp = Convert.ToString(Console.ReadLine());
+
+        string pattern = @"^\d+(,\d+)*$";
+
+        isRuning = !Regex.IsMatch(temp, pattern);
+
+    } while (!DoesInputContainsNumbers(temp));
+
+    try
+    {
+        Array.ForEach(temp.Split(",".ToCharArray()), s =>
+        {
+            int currentInt;
+            if (Int32.TryParse(s, out currentInt))
+                myInts.Add(currentInt);
+        });
+
+        isRuning = false;
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+
+    return myInts.ToArray();
 }
 
 static int CheckNummer(string num)
@@ -237,16 +268,4 @@ static int CheckNummer(string num)
     } while (string.IsNullOrEmpty(temp));
 
     return choice;
-}
-
-static void NotNoll(double res)
-{
-    if (res < 1)
-    {
-        Console.WriteLine(res);
-    }
-    else
-    {
-        Console.WriteLine(0);
-    }
 }
