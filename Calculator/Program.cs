@@ -215,10 +215,6 @@ static int[] InputArray()
         Console.WriteLine($"Ange siffra");
         temp = Convert.ToString(Console.ReadLine());
 
-        string pattern = @"^\d+(,\d+)*$";
-
-        isRuning = !Regex.IsMatch(temp, pattern);
-
     } while (!DoesInputContainsNumbers(temp));
 
     try
